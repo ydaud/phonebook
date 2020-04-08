@@ -3,15 +3,16 @@ const app = express()
 const morgan = require('morgan')
 const cors = require('cors')
 
+app.use(express.static('build'))
+app.use(cors())
+app.use(express.json())
+
 const generateId = () => {
     const maxId = persons.length > 0
         ? Math.max(...persons.map(p => p.id))
         : 0
     return maxId + 1
 }
-
-app.use(cors())
-app.use(express.json())
 
 morgan.token('post-data', (req, res) => {
     if (req.method === 'POST') {
